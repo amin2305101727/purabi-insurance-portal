@@ -1,0 +1,6 @@
+{
+  "name": "Purabi General Insurance",
+  "description": "Official portal for Purabi General Insurance Company Limited (PGICL) featuring online insurance quotes, health plans, claim tracking, and news.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
