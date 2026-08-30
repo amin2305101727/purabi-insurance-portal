@@ -657,21 +657,25 @@ export const Home: React.FC<HomePageProps> = ({
             src="/images/Background2.jpg"
             alt="Background2 - Our Working Process Consultation"
             referrerPolicy="no-referrer"
-            className="w-full h-full object-cover object-center brightness-90 scale-105"
+            className="w-full h-full object-cover object-center brightness-90"
           />
           {/* Soft dark overlay */}
-          <div className="absolute inset-0 bg-black/25"></div>
+          <div className="absolute inset-0 bg-black/30"></div>
         </div>
 
         {/* Outer Frame / Glass Card Container (Blueprint Frame 124: 80px padding all around) */}
         <div 
-          className="relative z-10 w-full max-w-[1440px] mx-auto glass-panel rounded-[24px] shadow-2xl flex flex-col items-center"
+          className="relative z-10 w-full max-w-[1440px] mx-auto glass-panel bg-white/10 backdrop-blur-xl md:backdrop-blur-2xl border border-white/30 rounded-[24px] shadow-2xl flex flex-col items-center"
           style={{
             paddingTop: '80px',
             paddingBottom: '80px',
             paddingLeft: 'max(24px, min(80px, 5vw))',
             paddingRight: 'max(24px, min(80px, 5vw))',
             fontFamily: "'Poppins', sans-serif",
+            backgroundColor: 'rgba(255, 255, 255, 0.12)',
+            backdropFilter: 'blur(24px)',
+            WebkitBackdropFilter: 'blur(24px)',
+            border: '1.5px solid rgba(255, 255, 255, 0.35)',
           }}
         >
           {/* Header Block */}
