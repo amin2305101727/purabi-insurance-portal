@@ -24,7 +24,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenQuote, onOpenPayment }) =>
       <div className="w-full max-w-[1280px] mx-auto flex flex-col items-center">
         
         {/* Frame 211: Pre-footer Call to Action */}
-        <div className="w-full max-w-[950px] mx-auto text-center flex flex-col items-center mb-12">
+        <div className="w-full max-w-[950px] mx-auto text-center flex flex-col items-center mb-0">
           {/* Eyebrow */}
           <p 
             className="text-[#666] mb-1.5 text-center"
@@ -50,14 +50,13 @@ export const Footer: React.FC<FooterProps> = ({ onOpenQuote, onOpenPayment }) =>
               fontWeight: 700,
               lineHeight: 'normal',
               letterSpacing: '-0.436px',
-              marginBottom: '20px',
             }}
           >
             Get Your Insurance Now!
           </h2>
 
-          {/* Buy Now Button (20px gap from heading) */}
-          <div>
+          {/* Buy Now Button (20px gap from heading above, and 20px gap to navbar below) */}
+          <div style={{ marginTop: '20px', marginBottom: '20px' }}>
             <button
               onClick={onOpenQuote}
               className="inline-flex items-center justify-center gap-2 bg-[#B8422B] hover:bg-[#9E3420] text-white transition-all transform active:scale-95 cursor-pointer shadow-md hover:shadow-lg rounded-[8px]"
@@ -76,32 +75,37 @@ export const Footer: React.FC<FooterProps> = ({ onOpenQuote, onOpenPayment }) =>
 
         {/* Navbar Components */}
         <div 
-          className="w-full flex flex-wrap justify-center items-center text-slate-800 mb-6"
+          className="w-full flex flex-wrap justify-center items-center mb-6"
           style={{
             display: 'flex',
-            padding: '14px 20px',
+            padding: '0px 20px',
             justifyContent: 'center',
             alignItems: 'center',
-            gap: '10px',
+            gap: '12px',
+            color: '#000',
             fontFamily: "'Poppins', sans-serif",
-            fontSize: '14.5px',
-            fontWeight: 500,
+            fontSize: '18px',
+            fontStyle: 'normal',
+            fontWeight: 400,
+            lineHeight: 'normal',
+            textTransform: 'capitalize',
           }}
         >
-          <Link to="/" className="px-3 py-1 hover:text-[#B8422B] transition-colors">Home</Link>
-          <Link to="/about" className="px-3 py-1 hover:text-[#B8422B] transition-colors">About Us</Link>
-          <div className="px-3 py-1 flex items-center gap-1 cursor-pointer hover:text-[#B8422B] transition-colors">
+          <Link to="/" className="px-3 py-1 text-black hover:text-[#B8422B] transition-colors" style={{ color: '#000', textTransform: 'capitalize' }}>Home</Link>
+          <Link to="/about" className="px-3 py-1 text-black hover:text-[#B8422B] transition-colors" style={{ color: '#000', textTransform: 'capitalize' }}>About Us</Link>
+          <div className="px-3 py-1 flex items-center gap-1 cursor-pointer text-black hover:text-[#B8422B] transition-colors" style={{ color: '#000', textTransform: 'capitalize' }}>
             <span>Services</span>
-            <ChevronDown className="w-3.5 h-3.5 opacity-60" />
+            <ChevronDown className="w-4 h-4 opacity-70" />
           </div>
-          <div className="px-3 py-1 flex items-center gap-1 cursor-pointer hover:text-[#B8422B] transition-colors">
+          <div className="px-3 py-1 flex items-center gap-1 cursor-pointer text-black hover:text-[#B8422B] transition-colors" style={{ color: '#000', textTransform: 'capitalize' }}>
             <span>Claims</span>
-            <ChevronDown className="w-3.5 h-3.5 opacity-60" />
+            <ChevronDown className="w-4 h-4 opacity-70" />
           </div>
-          <Link to="/blogs" className="px-3 py-1 hover:text-[#B8422B] transition-colors">Blogs</Link>
+          <Link to="/blogs" className="px-3 py-1 text-black hover:text-[#B8422B] transition-colors" style={{ color: '#000', textTransform: 'capitalize' }}>Blogs</Link>
           <button 
             onClick={onOpenPayment} 
-            className="px-3 py-1 hover:text-[#B8422B] transition-colors font-semibold text-[#B8422B] cursor-pointer"
+            className="px-3 py-1 text-black hover:text-[#B8422B] transition-colors cursor-pointer"
+            style={{ color: '#000', textTransform: 'capitalize' }}
           >
             Pay Premium
           </button>
@@ -140,27 +144,31 @@ export const Footer: React.FC<FooterProps> = ({ onOpenQuote, onOpenPayment }) =>
 
         {/* Working Hours */}
         <div 
-          className="text-center text-slate-600 mb-8"
+          className="text-center mb-8"
           style={{
+            color: '#000',
             fontFamily: "'Poppins', sans-serif",
-            fontSize: '13.5px',
-            fontWeight: 500,
+            fontSize: '20px',
+            fontStyle: 'normal',
+            fontWeight: 400,
+            lineHeight: '24px',
           }}
         >
           Sunday to Thursday : 10 AM to 6 PM
         </div>
 
-          {/* Payment Channels Section */}
-        <div className="w-full max-w-[1280px] mb-8 flex flex-col items-center">
+        {/* Payment Channels Section */}
+        <div className="w-full max-w-[1280px] mb-8 flex flex-col items-start">
           <div 
-            className="text-slate-600 mb-3 text-center w-full"
+            className="text-slate-600 mb-3 text-left w-full"
             style={{
               fontFamily: "'Poppins', sans-serif",
               fontWeight: 400,
               fontStyle: 'normal',
-              fontSize: '12px',
+              fontSize: '13px',
               lineHeight: '100%',
               letterSpacing: '-0.2px',
+              textAlign: 'left',
             }}
           >
             Payment Channels
@@ -208,18 +216,24 @@ export const Footer: React.FC<FooterProps> = ({ onOpenQuote, onOpenPayment }) =>
 
         {/* Bottom Legal / Copyright Strip */}
         <div 
-          className="w-full border-t border-stone-200/80 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-500"
+          className="w-full border-t border-stone-200/80 pt-6 flex flex-col md:flex-row items-center justify-between gap-4"
           style={{
+            color: '#444',
             fontFamily: "'Poppins', sans-serif",
+            fontSize: '15px',
+            fontStyle: 'normal',
+            fontWeight: 400,
+            lineHeight: 'normal',
+            letterSpacing: '-0.205px',
           }}
         >
           <div>
-            Copyright © <span className="font-semibold text-slate-700">360D Soul Limited</span> 2025. All rights reserved.
+            Copyright © <span style={{ color: '#AC3E25', fontWeight: 700, fontFamily: "'Poppins', sans-serif", fontSize: '15px', letterSpacing: '-0.205px' }}>360D Soul Limited</span> 2025. All rights reserved.
           </div>
           <div className="flex items-center gap-6 font-normal">
-            <Link to="/terms" className="hover:text-slate-800 transition-colors">Teams & Condition</Link>
-            <Link to="/privacy" className="hover:text-slate-800 transition-colors">Privacy & Policy</Link>
-            <Link to="/refund" className="hover:text-slate-800 transition-colors">Refund Policy</Link>
+            <Link to="/terms" className="hover:text-slate-800 transition-colors" style={{ color: '#444' }}>Terms & Condition</Link>
+            <Link to="/privacy" className="hover:text-slate-800 transition-colors" style={{ color: '#444' }}>Privacy & Policy</Link>
+            <Link to="/refund" className="hover:text-slate-800 transition-colors" style={{ color: '#444' }}>Refund Policy</Link>
           </div>
         </div>
 

@@ -105,16 +105,22 @@ export const Home: React.FC<HomePageProps> = ({
       id: 'health', 
       name: 'Health', 
       renderIcon: (isSelected: boolean) => (
-        <svg className="w-8 h-8 sm:w-9 sm:h-9" viewBox="0 0 36 36" fill="none">
-          {/* Heart path */}
+        <svg className="w-9 h-9 sm:w-12 sm:h-12" viewBox="0 0 40 40" fill="none">
+          {/* Main Heart */}
           <path 
-            d="M18 30.5L15.82 28.52C8.1 21.52 3 16.9 3 11.2C3 6.58 6.58 3 11.2 3C13.81 3 16.31 4.21 18 6.13C19.69 4.21 22.19 3 24.8 3C29.42 3 33 6.58 33 11.2C33 14.5 31.4 17.5 28.9 19.6" 
+            d="M20 34.2L17.65 32.07C9.3 24.5 3.8 19.5 3.8 13.3C3.8 8.27 7.74 4.33 12.77 4.33C15.61 4.33 18.32 5.65 20 7.73C21.68 5.65 24.39 4.33 27.23 4.33C32.26 4.33 36.2 8.27 36.2 13.3C36.2 16.88 34.62 20.15 32.1 22.45" 
             fill={isSelected ? '#ffffff' : '#a83b24'} 
           />
-          {/* Small check badge */}
-          <circle cx="26" cy="24" r="6" fill={isSelected ? '#a83b24' : '#F2DFD8'} />
-          <circle cx="26" cy="24" r="5" fill={isSelected ? '#ffffff' : '#a83b24'} />
-          <path d="M23.8 24L25.3 25.5L28.2 22.5" stroke={isSelected ? '#a83b24' : '#F2DFD8'} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+          {/* Checkmark Badge on Bottom Right */}
+          <circle cx="28.5" cy="27.5" r="7" fill={isSelected ? '#a83b24' : '#F2DFD8'} />
+          <circle cx="28.5" cy="27.5" r="5.8" fill={isSelected ? '#ffffff' : '#a83b24'} />
+          <path 
+            d="M25.8 27.5L27.6 29.3L31.2 25.7" 
+            stroke={isSelected ? '#a83b24' : '#ffffff'} 
+            strokeWidth="1.8" 
+            strokeLinecap="round" 
+            strokeLinejoin="round" 
+          />
         </svg>
       )
     },
@@ -122,16 +128,21 @@ export const Home: React.FC<HomePageProps> = ({
       id: 'car', 
       name: 'Car', 
       renderIcon: (isSelected: boolean) => (
-        <svg className="w-8 h-8 sm:w-9 sm:h-9" viewBox="0 0 36 36" fill="none">
-          {/* Car body */}
+        <svg className="w-9 h-9 sm:w-12 sm:h-12" viewBox="0 0 40 40" fill="none">
+          {/* Car Body Silhouette */}
           <path 
-            d="M27.5 10.5C27.2 9.6 26.3 9 25.3 9H10.7C9.7 9 8.8 9.6 8.5 10.5L5 20.5V30C5 30.8 5.7 31.5 6.5 31.5H8C8.8 31.5 9.5 30.8 9.5 30V28.5H26.5V30C26.5 30.8 27.2 31.5 28 31.5H29.5C30.3 31.5 31 30.8 31 30V20.5L27.5 10.5ZM9.5 24.5C8.4 24.5 7.5 23.6 7.5 22.5C7.5 21.4 8.4 20.5 9.5 20.5C10.6 20.5 11.5 21.4 11.5 22.5C11.5 23.6 10.6 24.5 9.5 24.5ZM26.5 24.5C25.4 24.5 24.5 23.6 24.5 22.5C24.5 21.4 25.4 20.5 26.5 20.5C27.6 20.5 28.5 21.4 28.5 22.5C28.5 23.6 27.6 24.5 26.5 24.5ZM7.5 18L10 10.5H26L28.5 18H7.5Z" 
+            d="M28.5 11.5C28.1 10.4 27.1 9.7 26 9.7H14C12.9 9.7 11.9 10.4 11.5 11.5L8 21.5V30.5C8 31.3 8.7 32 9.5 32H11C11.8 32 12.5 31.3 12.5 30.5V29H23.5V30.5C23.5 31.3 24.2 32 25 32H26.5C27.3 32 28 31.3 28 30.5V23H32V21.5L28.5 11.5ZM12.5 24C11.4 24 10.5 23.1 10.5 22C10.5 20.9 11.4 20 12.5 20C13.6 20 14.5 20.9 14.5 22C14.5 23.1 13.6 24 12.5 24ZM27.5 24C26.4 24 25.5 23.1 25.5 22C25.5 20.9 26.4 20 27.5 20C28.6 20 29.5 20.9 29.5 22C29.5 23.1 28.6 24 27.5 24ZM10.5 19L13 12H27L29.5 19H10.5Z" 
             fill={isSelected ? '#ffffff' : '#a83b24'} 
           />
-          {/* Plus badge */}
-          <circle cx="27" cy="24" r="6" fill={isSelected ? '#a83b24' : '#F2DFD8'} />
-          <circle cx="27" cy="24" r="5" fill={isSelected ? '#ffffff' : '#a83b24'} />
-          <path d="M27 21.5V26.5M24.5 24H29.5" stroke={isSelected ? '#a83b24' : '#F2DFD8'} strokeWidth="1.6" strokeLinecap="round" />
+          {/* Plus Badge */}
+          <circle cx="30" cy="27" r="6.5" fill={isSelected ? '#a83b24' : '#F2DFD8'} />
+          <circle cx="30" cy="27" r="5.5" fill={isSelected ? '#ffffff' : '#a83b24'} />
+          <path 
+            d="M30 24.2V29.8M27.2 27H32.8" 
+            stroke={isSelected ? '#a83b24' : '#ffffff'} 
+            strokeWidth="1.8" 
+            strokeLinecap="round" 
+          />
         </svg>
       )
     },
@@ -139,16 +150,19 @@ export const Home: React.FC<HomePageProps> = ({
       id: 'travel', 
       name: 'Travel', 
       renderIcon: (isSelected: boolean) => (
-        <svg className="w-8 h-8 sm:w-9 sm:h-9" viewBox="0 0 36 36" fill="none">
-          {/* Suitcase */}
+        <svg className="w-9 h-9 sm:w-12 sm:h-12" viewBox="0 0 40 40" fill="none">
+          {/* Luggage / Suitcase */}
           <path 
-            d="M27 10.5H22.5V9C22.5 6.5 20.5 4.5 18 4.5C15.5 4.5 13.5 6.5 13.5 9V10.5H9C7.3 10.5 6 11.8 6 13.5V27C6 28.7 7.3 30 9 30H27C28.7 30 30 28.7 30 27V13.5C30 11.8 28.7 10.5 27 10.5ZM15 9C15 7.3 16.3 6 18 6C19.7 6 21 7.3 21 9V10.5H15V9ZM12 16.5H15V27H12V16.5ZM24 27H21V16.5H24V27Z" 
+            d="M29 11H24.5V9.5C24.5 7 22.5 5 20 5C17.5 5 15.5 7 15.5 9.5V11H11C9.3 11 8 12.3 8 14V29C8 30.7 9.3 32 11 32H29C30.7 32 32 30.7 32 29V14C32 12.3 30.7 11 29 11ZM17.5 9.5C17.5 8.1 18.6 7 20 7C21.4 7 22.5 8.1 22.5 9.5V11H17.5V9.5ZM13 17H16V29H13V17ZM27 29H24V17H27V29Z" 
             fill={isSelected ? '#ffffff' : '#a83b24'} 
           />
-          {/* Shield badge */}
-          <circle cx="26" cy="23" r="6" fill={isSelected ? '#a83b24' : '#F2DFD8'} />
-          <circle cx="26" cy="23" r="5" fill={isSelected ? '#ffffff' : '#a83b24'} />
-          <path d="M26 20.5L23.8 21.7V23.8C23.8 25.2 25.2 26.2 26 26.5C26.8 26.2 28.2 25.2 28.2 23.8V21.7L26 20.5Z" fill={isSelected ? '#a83b24' : '#F2DFD8'} />
+          {/* Camera / Shield Badge */}
+          <circle cx="28" cy="26" r="6.5" fill={isSelected ? '#a83b24' : '#F2DFD8'} />
+          <circle cx="28" cy="26" r="5.5" fill={isSelected ? '#ffffff' : '#a83b24'} />
+          <path 
+            d="M28 23.2L25.8 24.4V26.4C25.8 27.8 27.2 28.8 28 29.1C28.8 28.8 30.2 27.8 30.2 26.4V24.4L28 23.2Z" 
+            fill={isSelected ? '#a83b24' : '#ffffff'} 
+          />
         </svg>
       )
     },
@@ -156,16 +170,16 @@ export const Home: React.FC<HomePageProps> = ({
       id: 'life', 
       name: 'Life', 
       renderIcon: (isSelected: boolean) => (
-        <svg className="w-8 h-8 sm:w-9 sm:h-9" viewBox="0 0 36 36" fill={isSelected ? '#ffffff' : '#a83b24'}>
-          {/* Father */}
-          <circle cx="10" cy="9" r="3" />
-          <path d="M13 13.5H7C5.9 13.5 5 14.4 5 15.5V24H7.5V30H12.5V24H15V15.5C15 14.4 14.1 13.5 13 13.5Z" />
-          {/* Mother */}
-          <circle cx="26" cy="9" r="3" />
-          <path d="M29 13.5H23C21.9 13.5 21 14.4 21 15.5V24H23.5V30H28.5V24H31V15.5C31 14.4 30.1 13.5 29 13.5Z" />
-          {/* Child */}
-          <circle cx="18" cy="16" r="2.2" />
-          <path d="M20 19.5H16C15.2 19.5 14.5 20.2 14.5 21V27H16.2V31H19.8V27H21.5V21C21.5 20.2 20.8 19.5 20 19.5Z" />
+        <svg className="w-9 h-9 sm:w-12 sm:h-12" viewBox="0 0 40 40" fill={isSelected ? '#ffffff' : '#a83b24'}>
+          {/* Adult Left (Father) */}
+          <circle cx="13" cy="10" r="3.2" />
+          <path d="M16.2 15H9.8C8.5 15 7.5 16 7.5 17.3V25.5H9.8V32H13.8V25.5H16.2V17.3C16.2 16 15.2 15 13.9 15" />
+          {/* Adult Right (Mother) */}
+          <circle cx="27" cy="10" r="3.2" />
+          <path d="M30.2 15H23.8C22.5 15 21.5 16 21.5 17.3V25.5H23.8V32H27.8V25.5H30.2V17.3C30.2 16 29.2 15 27.9 15" />
+          {/* Child in Middle */}
+          <circle cx="20" cy="17" r="2.5" />
+          <path d="M22.5 21H17.5C16.7 21 16 21.7 16 22.5V28H17.8V33H22.2V28H24V22.5C24 21.7 23.3 21 22.5 21Z" />
         </svg>
       )
     },
@@ -173,9 +187,13 @@ export const Home: React.FC<HomePageProps> = ({
       id: 'marine', 
       name: 'Marine', 
       renderIcon: (isSelected: boolean) => (
-        <svg className="w-8 h-8 sm:w-9 sm:h-9" viewBox="0 0 36 36" fill={isSelected ? '#ffffff' : '#a83b24'}>
-          <path d="M29 23.5L27 15H23V11L18 7L13 11V15H9L7 23.5H29ZM15 13.5H21V15H15V13.5ZM15 17H21V18.5H15V17Z" />
-          <path d="M4 26.5H32V29.5H4V26.5Z" />
+        <svg className="w-9 h-9 sm:w-12 sm:h-12" viewBox="0 0 40 40" fill={isSelected ? '#ffffff' : '#a83b24'}>
+          {/* Commercial Cargo Ship Deck & Hull */}
+          <path d="M17 9H23V13H17V9Z" />
+          <path d="M14 14H26V18H14V14Z" />
+          <path d="M31 20L28.5 27.5C28.2 28.4 27.3 29 26.3 29H13.7C12.7 29 11.8 28.4 11.5 27.5L9 20H31Z" />
+          {/* Wave / Keel Bottom */}
+          <path d="M8 31.5C11 31.5 13 33 16 33C19 33 21 31.5 24 31.5C27 31.5 29 33 32 33V30.5C29 30.5 27 29.5 24 29.5C21 29.5 19 31 16 31C13 31 11 29.5 8 29.5V31.5Z" />
         </svg>
       )
     },
@@ -183,10 +201,12 @@ export const Home: React.FC<HomePageProps> = ({
       id: 'engineering', 
       name: 'Engineering', 
       renderIcon: (isSelected: boolean) => (
-        <svg className="w-8 h-8 sm:w-9 sm:h-9" viewBox="0 0 36 36" fill={isSelected ? '#ffffff' : '#a83b24'}>
-          <path d="M18 5C11.9 5 7 9.9 7 16V18H29V16C29 9.9 24.1 5 18 5ZM5 20H31V22.5H5V20Z" />
-          <circle cx="18" cy="27" r="4.5" />
-          <circle cx="18" cy="27" r="2" fill={isSelected ? '#a83b24' : '#F2DFD8'} />
+        <svg className="w-9 h-9 sm:w-12 sm:h-12" viewBox="0 0 40 40" fill={isSelected ? '#ffffff' : '#a83b24'}>
+          {/* Construction Hard Hat */}
+          <path d="M20 7C13.4 7 8 12.4 8 19V21.5H32V19C32 12.4 26.6 7 20 7Z" />
+          <path d="M6 22H34V24.5C34 25.3 33.3 26 32.5 26H7.5C6.7 26 6 25.3 6 24.5V22Z" />
+          {/* Gear / Cog Below Helmet */}
+          <path d="M22 26.5H18L17.5 28.5L15.8 29.2L14.2 28L11.4 30.8L12.6 32.4L11.9 34.1L9.9 34.6V37H12.3L13 38.6L11.8 40.2L14.6 43L16.2 41.8L17.9 42.5L18.4 44.5H21.6L22.1 42.5L23.8 41.8L25.4 43L28.2 40.2L27 38.6L27.7 37H30.1V34.6L28.1 34.1L27.4 32.4L28.6 30.8L25.8 28L24.2 29.2L22.5 28.5L22 26.5ZM20 33C21.4 33 22.5 34.1 22.5 35.5C22.5 36.9 21.4 38 20 38C18.6 38 17.5 36.9 17.5 35.5C17.5 34.1 18.6 33 20 33Z" transform="translate(0, -6) scale(1, 0.9)" />
         </svg>
       )
     },
@@ -194,10 +214,10 @@ export const Home: React.FC<HomePageProps> = ({
       id: 'more', 
       name: 'More', 
       renderIcon: (isSelected: boolean) => (
-        <svg className="w-8 h-8 sm:w-9 sm:h-9" viewBox="0 0 36 36" fill={isSelected ? '#ffffff' : '#a83b24'}>
-          <circle cx="9" cy="18" r="3.2" />
-          <circle cx="18" cy="18" r="3.2" />
-          <circle cx="27" cy="18" r="3.2" />
+        <svg className="w-9 h-9 sm:w-12 sm:h-12" viewBox="0 0 40 40" fill={isSelected ? '#ffffff' : '#a83b24'}>
+          <circle cx="10" cy="20" r="3.5" />
+          <circle cx="20" cy="20" r="3.5" />
+          <circle cx="30" cy="20" r="3.5" />
         </svg>
       )
     },
@@ -338,8 +358,8 @@ export const Home: React.FC<HomePageProps> = ({
             
             {/* Name Input */}
             <div className="lg:col-span-5">
-              <label className="block text-sm sm:text-base font-bold text-slate-950 mb-2">
-                Name <span className="text-red-500">*</span>
+              <label className="block text-base sm:text-[17px] font-bold text-black mb-2.5">
+                Name
               </label>
               <input
                 type="text"
@@ -351,7 +371,7 @@ export const Home: React.FC<HomePageProps> = ({
                     setQuickErrors((prev) => ({ ...prev, name: undefined }));
                   }
                 }}
-                placeholder="Enter Your Full Name"
+                placeholder="Enter Your  Full Name"
                 className={`w-full h-12 sm:h-[54px] px-5 sm:px-6 bg-white rounded-md border text-sm sm:text-base text-slate-900 placeholder:italic placeholder:text-stone-400 focus:outline-hidden transition-all shadow-xs ${
                   quickErrors.name
                     ? 'border-red-500 focus:ring-2 focus:ring-red-500'
@@ -365,8 +385,8 @@ export const Home: React.FC<HomePageProps> = ({
 
             {/* Mobile Number Input */}
             <div className="lg:col-span-5">
-              <label className="block text-sm sm:text-base font-bold text-slate-950 mb-2">
-                Mobile Number <span className="text-red-500">*</span>
+              <label className="block text-base sm:text-[17px] font-bold text-black mb-2.5">
+                Mobile Number
               </label>
               <input
                 type="tel"
@@ -378,7 +398,7 @@ export const Home: React.FC<HomePageProps> = ({
                     setQuickErrors((prev) => ({ ...prev, phone: undefined }));
                   }
                 }}
-                placeholder="01712-345678"
+                placeholder="Enter Your  Valid Phone Number"
                 className={`w-full h-12 sm:h-[54px] px-5 sm:px-6 bg-white rounded-md border text-sm sm:text-base text-slate-900 placeholder:italic placeholder:text-stone-400 focus:outline-hidden transition-all shadow-xs ${
                   quickErrors.phone
                     ? 'border-red-500 focus:ring-2 focus:ring-red-500'

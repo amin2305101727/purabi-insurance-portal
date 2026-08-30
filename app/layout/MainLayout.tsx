@@ -8,7 +8,6 @@ import { GetQuoteModal } from '../components/GetQuoteModal';
 import { PortalLoginModal } from '../components/PortalLoginModal';
 import { VideoModal } from '../components/VideoModal';
 import { PaymentModal } from '../components/PaymentModal';
-import { MobileQuickBar } from '../components/MobileQuickBar';
 
 interface LayoutContextType {
   openQuote: (category?: string) => void;
@@ -111,12 +110,6 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         <PaymentModal
           isOpen={isPaymentOpen}
           onClose={() => setIsPaymentOpen(false)}
-        />
-
-        {/* Mobile Sticky Quick Access Bar */}
-        <MobileQuickBar
-          onOpenQuote={openQuote}
-          onOpenClaimTracker={openClaimTracker}
         />
       </div>
     </LayoutContext.Provider>
