@@ -418,7 +418,7 @@ export const HealthInsurance: React.FC<HealthInsuranceProps> = ({ onOpenQuote })
                           }
                         }}
                         placeholder="Enter Your Full Name"
-                        className={`w-full h-11 sm:h-12 px-4 bg-[#FAF9F8] rounded-lg border text-sm text-slate-900 placeholder:italic placeholder:text-stone-400 focus:bg-white focus:outline-hidden transition-all ${
+                        className={`w-full h-11 sm:h-12 px-4 bg-[#FAF9F8] rounded-lg border text-sm text-slate-900 placeholder:text-stone-400 focus:bg-white focus:outline-hidden transition-all ${
                           formErrors.name 
                             ? 'border-red-500 ring-1 ring-red-500' 
                             : 'border-stone-200 focus:ring-2 focus:ring-[#a83b24] focus:border-transparent'
@@ -443,8 +443,8 @@ export const HealthInsurance: React.FC<HealthInsuranceProps> = ({ onOpenQuote })
                             setFormErrors(prev => ({ ...prev, phone: undefined }));
                           }
                         }}
-                        placeholder="01712-345678"
-                        className={`w-full h-11 sm:h-12 px-4 bg-[#FAF9F8] rounded-lg border text-sm text-slate-900 placeholder:italic placeholder:text-stone-400 focus:bg-white focus:outline-hidden transition-all ${
+                        placeholder="Enter Your Phone Number"
+                        className={`w-full h-11 sm:h-12 px-4 bg-[#FAF9F8] rounded-lg border text-sm text-slate-900 placeholder:text-stone-400 focus:bg-white focus:outline-hidden transition-all ${
                           formErrors.phone 
                             ? 'border-red-500 ring-1 ring-red-500' 
                             : 'border-stone-200 focus:ring-2 focus:ring-[#a83b24] focus:border-transparent'

@@ -11,6 +11,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
   const [servicesOpen, setServicesOpen] = useState(false);
   const [claimsOpen, setClaimsOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+  const [mobileClaimsOpen, setMobileClaimsOpen] = useState(false);
   const location = useLocation();
 
   const servicesRef = useRef<HTMLDivElement>(null);
@@ -340,69 +342,117 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
 
       {/* Mobile Menu Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-t border-stone-200 bg-white px-4 pt-3 pb-6 space-y-3 shadow-lg animate-in slide-in-from-top-4 duration-150">
+        <div className="lg:hidden border-t border-stone-200 bg-white px-4 pt-3 pb-6 space-y-1.5 shadow-lg animate-in slide-in-from-top-4 duration-150">
           <NavLink
             to="/"
             end
             onClick={() => setMobileMenuOpen(false)}
             className={({ isActive }) =>
-              `block px-3 py-2 rounded-lg text-sm font-semibold ${
-                isActive ? 'bg-[#fcf5f3] text-[#a83b24]' : 'text-slate-700 hover:bg-stone-50'
+              `block px-3 py-2.5 rounded-lg text-sm font-semibold transition-colors ${
+                isActive ? 'bg-[#fcf5f3] text-[#a83b24]' : 'text-slate-800 hover:bg-stone-50'
               }`
             }
           >
             Home
           </NavLink>
+
           <NavLink
             to="/about"
             onClick={() => setMobileMenuOpen(false)}
             className={({ isActive }) =>
-              `block px-3 py-2 rounded-lg text-sm font-semibold ${
-                isActive ? 'bg-[#fcf5f3] text-[#a83b24]' : 'text-slate-700 hover:bg-stone-50'
+              `block px-3 py-2.5 rounded-lg text-sm font-semibold transition-colors ${
+                isActive ? 'bg-[#fcf5f3] text-[#a83b24]' : 'text-slate-800 hover:bg-stone-50'
               }`
             }
           >
             About Us
           </NavLink>
           
-          <div className="px-3 py-1">
-            <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Services</div>
-            <div className="grid grid-cols-2 gap-2 text-xs font-medium text-slate-700">
-              {insuranceServices.map((item, idx) => {
-                const isHealth = item === 'Health Insurance';
-                return isHealth ? (
-                  <Link
-                    key={idx}
-                    to="/health-insurance"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="py-1.5 px-2.5 rounded-md bg-[#FAF1EE] text-[#a83b24] font-semibold border border-[#ebd8cc] block"
-                  >
-                    {item}
-                  </Link>
-                ) : (
-                  <div key={idx} className="py-1 px-2 rounded-md bg-stone-50 text-slate-800">
-                    {item}
-                  </div>
-                );
-              })}
-            </div>
+          {/* Services Accordion Toggle */}
+          <div className="rounded-lg overflow-hidden">
+            <button
+              type="button"
+              onClick={() => {
+                setMobileServicesOpen(!mobileServicesOpen);
+                setMobileClaimsOpen(false);
+              }}
+              className={`w-full flex items-center justify-between px-3 py-2.5 text-sm font-semibold rounded-lg transition-colors cursor-pointer ${
+                mobileServicesOpen ? 'bg-[#fcf5f3] text-[#a83b24]' : 'text-slate-800 hover:bg-stone-50'
+              }`}
+            >
+              <span>Services</span>
+              <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${mobileServicesOpen ? 'rotate-180 text-[#a83b24]' : 'text-slate-400'}`} />
+            </button>
+
+            {mobileServicesOpen && (
+              <div className="pl-3 pr-1 py-2 space-y-1 bg-stone-50/70 rounded-lg mt-1 border border-stone-100 animate-in slide-in-from-top-2 duration-150">
+                {insuranceServices.map((item, idx) => {
+                  const isHealth = item === 'Health Insurance';
+                  return isHealth ? (
+                    <Link
+                      key={idx}
+                      to="/health-insurance"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center justify-between py-2 px-3 rounded-md bg-[#FAF1EE] text-[#a83b24] text-xs font-bold border border-[#ebd8cc] transition-colors"
+                    >
+                      <span>{item}</span>
+                      <ArrowIcon className="w-3.5 h-3.5" />
+                    </Link>
+                  ) : (
+                    <div
+                      key={idx}
+                      className="flex items-center justify-between py-2 px-3 rounded-md text-slate-700 text-xs font-medium hover:bg-stone-100 transition-colors cursor-default"
+                    >
+                      <span>{item}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
 
-          <div className="px-3 py-1">
-            <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Claims</div>
-            <div className="space-y-1.5 text-xs text-slate-700">
-              {claimsItems.map((item, idx) => (
-                <div key={idx} className="p-2 rounded-md bg-stone-50 font-medium">
-                  {item.title}
-                </div>
-              ))}
-            </div>
+          {/* Claims Accordion Toggle */}
+          <div className="rounded-lg overflow-hidden">
+            <button
+              type="button"
+              onClick={() => {
+                setMobileClaimsOpen(!mobileClaimsOpen);
+                setMobileServicesOpen(false);
+              }}
+              className={`w-full flex items-center justify-between px-3 py-2.5 text-sm font-semibold rounded-lg transition-colors cursor-pointer ${
+                mobileClaimsOpen ? 'bg-[#fcf5f3] text-[#a83b24]' : 'text-slate-800 hover:bg-stone-50'
+              }`}
+            >
+              <span>Claims</span>
+              <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${mobileClaimsOpen ? 'rotate-180 text-[#a83b24]' : 'text-slate-400'}`} />
+            </button>
+
+            {mobileClaimsOpen && (
+              <div className="pl-3 pr-1 py-2 space-y-1.5 bg-stone-50/70 rounded-lg mt-1 border border-stone-100 animate-in slide-in-from-top-2 duration-150">
+                {claimsItems.map((item, idx) => {
+                  const Icon = item.icon;
+                  return (
+                    <div
+                      key={idx}
+                      className="p-2.5 rounded-md bg-white border border-stone-100 text-xs text-slate-800 hover:border-stone-200 transition-colors"
+                    >
+                      <div className="flex items-center gap-2 font-semibold text-slate-900">
+                        <Icon className="w-3.5 h-3.5 text-[#a83b24]" />
+                        <span>{item.title}</span>
+                      </div>
+                      <p className="text-[11px] text-slate-500 mt-0.5 pl-5.5 leading-tight">{item.desc}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
 
-          <div className="px-3 py-1 text-sm font-semibold text-slate-600">
+          <div className="px-3 py-2.5 text-sm font-semibold text-slate-800 hover:bg-stone-50 rounded-lg cursor-pointer transition-colors">
             Blogs
           </div>
-          <div className="px-3 py-1 text-sm font-semibold text-slate-600">
+
+          <div className="px-3 py-2.5 text-sm font-semibold text-slate-800 hover:bg-stone-50 rounded-lg cursor-pointer transition-colors">
             Contact Us
           </div>
 

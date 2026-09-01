@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { X, ArrowRight, CheckCircle, Calculator, ShieldCheck, Sparkles } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { X, ArrowRight, CheckCircle, Calculator, ShieldCheck, Sparkles, PhoneCall, Download } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { INSURANCE_CATEGORIES, COMPANY_INFO } from '../data/mockData';
 
@@ -16,7 +16,15 @@ export const GetQuoteModal: React.FC<GetQuoteModalProps> = ({ isOpen, onClose, i
   const [email, setEmail] = useState('');
   const [coverageVal, setCoverageVal] = useState('500000');
   const [submitted, setSubmitted] = useState(false);
+  const [isActivated, setIsActivated] = useState(false);
   const [calculatedQuote, setCalculatedQuote] = useState<{ premium: number; vat: number; total: number } | null>(null);
+
+  useEffect(() => {
+    if (isOpen) {
+      if (initialCategory) setCategory(initialCategory);
+      setIsActivated(false);
+    }
+  }, [isOpen, initialCategory]);
 
   if (!isOpen) return null;
 
@@ -55,7 +63,18 @@ export const GetQuoteModal: React.FC<GetQuoteModalProps> = ({ isOpen, onClose, i
 
   const handleReset = () => {
     setSubmitted(false);
+    setIsActivated(false);
     setCalculatedQuote(null);
+  };
+
+  const handleActivate = () => {
+    setIsActivated(true);
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.5 },
+      colors: ['#a83b24', '#f97316', '#10b981']
+    });
   };
 
   return (
@@ -227,23 +246,47 @@ export const GetQuoteModal: React.FC<GetQuoteModalProps> = ({ isOpen, onClose, i
               </div>
 
               {/* Next steps buttons */}
-              <div className="flex flex-col sm:flex-row gap-2 pt-2">
-                <button
-                  onClick={() => {
-                    alert(`Your application for ${category.toUpperCase()} Insurance has been submitted! An underwriting officer will reach out to ${phone} within 30 minutes.`);
-                    onClose();
-                  }}
-                  className="flex-1 py-3 bg-[#a83b24] hover:bg-[#8f2d18] text-white font-bold text-xs rounded-lg transition-colors cursor-pointer text-center"
-                >
-                  Proceed to Policy Activation
-                </button>
-                <button
-                  onClick={handleReset}
-                  className="px-4 py-3 bg-stone-100 hover:bg-stone-200 text-slate-700 font-semibold text-xs rounded-lg transition-colors cursor-pointer"
-                >
-                  Recalculate
-                </button>
-              </div>
+              {isActivated ? (
+                <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-5 space-y-3 text-center animate-in fade-in duration-200">
+                  <div className="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 mx-auto flex items-center justify-center">
+                    <ShieldCheck className="w-6 h-6" />
+                  </div>
+                  <h4 className="text-base font-bold text-slate-900">Application Received!</h4>
+                  <p className="text-xs text-slate-600 leading-relaxed max-w-sm mx-auto">
+                    Application ID: <span className="font-mono font-bold text-slate-900">PGICL-QUO-2025-7821</span>.<br />
+                    Our underwriting desk will call you at <span className="font-bold text-slate-900">{phone}</span> within 30 minutes to complete verification and issue your policy certificate.
+                  </p>
+                  <div className="flex gap-2 pt-2 justify-center">
+                    <button
+                      onClick={onClose}
+                      className="px-6 py-2.5 bg-[#a83b24] hover:bg-[#8f2d18] text-white font-bold text-xs rounded-lg transition-colors cursor-pointer"
+                    >
+                      Done
+                    </button>
+                    <button
+                      onClick={handleReset}
+                      className="px-4 py-2.5 bg-white border border-stone-200 hover:bg-stone-50 text-slate-700 font-semibold text-xs rounded-lg transition-colors cursor-pointer"
+                    >
+                      New Calculation
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex flex-col sm:flex-row gap-2 pt-2">
+                  <button
+                    onClick={handleActivate}
+                    className="flex-1 py-3 bg-[#a83b24] hover:bg-[#8f2d18] text-white font-bold text-xs rounded-lg transition-colors cursor-pointer text-center"
+                  >
+                    Proceed to Policy Activation
+                  </button>
+                  <button
+                    onClick={handleReset}
+                    className="px-4 py-3 bg-stone-100 hover:bg-stone-200 text-slate-700 font-semibold text-xs rounded-lg transition-colors cursor-pointer"
+                  >
+                    Recalculate
+                  </button>
+                </div>
+              )}
 
             </div>
           )}

@@ -138,7 +138,7 @@ export const NEWS_ITEMS: NewsItem[] = [
     category: 'Corporate News',
     summary: 'পুরবী জেনারেল ইন্স্যুরেন্স কোম্পানি লিমিটেড গভীর শ্রদ্ধার সাথে তাদের সম্মানিত পরিচালনা পর্ষদের সদস্যের বিদেহী আত্মার মাগফিরাত কামনা করছে।',
     content: 'পুরবী জেনারেল ইন্স্যুরেন্স কোম্পানি লিমিটেড (PGICL) পরিবারের পক্ষ থেকে গভীর শোক ও সমবেদনা জ্ঞাপন করা হচ্ছে। মরহুমের অবদান কোম্পানি চিরকাল শ্রদ্ধার সাথে স্মরণ রাখবে। তাঁর শোকসন্তপ্ত পরিবারের প্রতি গভীর সহমর্মিতা জানানো হচ্ছে।',
-    imageUrl: '/images/shok_songbad.jpg',
+    imageUrl: '/images/shok_songbad.png',
   },
   {
     id: 'news-2',
@@ -148,7 +148,7 @@ export const NEWS_ITEMS: NewsItem[] = [
     category: 'Event',
     summary: 'কোম্পানির সকল কর্মকর্তা ও কর্মচারীদের উপস্থিতিতে বিশেষ দোয়া ও স্মৃতিচারণ অনুষ্ঠান আয়োজিত হয়েছে।',
     content: 'পুরবী জেনারেল ইন্স্যুরেন্স কোম্পানি লিমিটেডের প্রধান কার্যালয় ও শাখা অফিসগুলোতে বিশেষ দোয়া মাহফিল অনুষ্ঠিত হয়। এতে কর্মকর্তা, শেয়ারহোল্ডার এবং শুভানুধ্যায়ীগণ অংশগ্রহণ করেন।',
-    imageUrl: '/images/shok_songbad.jpg',
+    imageUrl: '/images/shok_songbad.png',
   },
   {
     id: 'news-3',
@@ -169,7 +169,7 @@ export const NEWS_ITEMS: NewsItem[] = [
     category: 'Innovation',
     summary: 'Purabi General Insurance announces instantaneous claim tracking and digital submission portal for policyholders.',
     content: 'In line with the company vision of "Protecting Value Through Innovation", PGICL has deployed a cloud-enabled claim tracking pipeline that allows corporate and individual customers to track survey updates and claim approvals in minutes.',
-    imageUrl: '/images/shok_songbad.jpg',
+    imageUrl: '/images/shok_songbad.png',
   }
 ];
 

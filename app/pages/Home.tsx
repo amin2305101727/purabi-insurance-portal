@@ -1032,7 +1032,7 @@ export const Home: React.FC<HomePageProps> = ({
                 bengaliTitle: 'শোক সংবাদ',
                 date: '21 June 2025',
                 summary: 'Praesent viverra augue assumenda mauris molestie sed vitae, rutrum inventore ullamcor..',
-                image: '/images/shok_songbad.jpg',
+                image: '/images/shok_songbad.png',
                 category: 'Corporate News'
               },
               {
@@ -1041,7 +1041,7 @@ export const Home: React.FC<HomePageProps> = ({
                 bengaliTitle: 'শোক সংবাদ',
                 date: '21 June 2025',
                 summary: 'Praesent viverra augue assumenda mauris molestie sed vitae, rutrum inventore ullamcor..',
-                image: '/images/shok_songbad.jpg',
+                image: '/images/shok_songbad.png',
                 category: 'Corporate News'
               },
               {
