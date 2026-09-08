@@ -17,6 +17,10 @@ export const GetQuoteModal: React.FC<GetQuoteModalProps> = ({ isOpen, onClose, i
   const [coverageVal, setCoverageVal] = useState('500000');
   const [submitted, setSubmitted] = useState(false);
   const [isActivated, setIsActivated] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [quoteId, setQuoteId] = useState<string | null>(null);
+  const [applicationId, setApplicationId] = useState<string | null>(null);
+  const [apiError, setApiError] = useState('');
   const [calculatedQuote, setCalculatedQuote] = useState<{ premium: number; vat: number; total: number } | null>(null);
 
   useEffect(() => {
@@ -46,35 +50,64 @@ export const GetQuoteModal: React.FC<GetQuoteModalProps> = ({ isOpen, onClose, i
     };
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !phone) return;
     const numCoverage = parseInt(coverageVal, 10) || 500000;
-    const quote = calculateEstimate(category, numCoverage);
-    setCalculatedQuote(quote);
-    setSubmitted(true);
-    confetti({
-      particleCount: 80,
-      spread: 60,
-      origin: { y: 0.6 },
-      colors: ['#a83b24', '#f97316', '#22c55e']
-    });
+    setIsSubmitting(true);
+    setApiError('');
+
+    try {
+      const response = await fetch('/api/quotes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ category, name, phone, email, coverage: numCoverage }),
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message || 'Unable to create quote.');
+
+      setQuoteId(data.id);
+      setCalculatedQuote({ premium: data.premium, vat: data.vat, total: data.total });
+      setSubmitted(true);
+      confetti({ particleCount: 80, spread: 60, origin: { y: 0.6 }, colors: ['#a83b24', '#f97316', '#22c55e'] });
+    } catch (error) {
+      setApiError(error instanceof Error ? error.message : 'Unable to create quote. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleReset = () => {
     setSubmitted(false);
     setIsActivated(false);
     setCalculatedQuote(null);
+    setQuoteId(null);
+    setApplicationId(null);
+    setApiError('');
   };
 
-  const handleActivate = () => {
-    setIsActivated(true);
-    confetti({
-      particleCount: 100,
-      spread: 70,
-      origin: { y: 0.5 },
-      colors: ['#a83b24', '#f97316', '#10b981']
-    });
+  const handleActivate = async () => {
+    if (!quoteId) return;
+    setIsSubmitting(true);
+    setApiError('');
+
+    try {
+      const response = await fetch('/api/applications', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ quoteId }),
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message || 'Unable to submit application.');
+
+      setApplicationId(data.id);
+      setIsActivated(true);
+      confetti({ particleCount: 100, spread: 70, origin: { y: 0.5 }, colors: ['#a83b24', '#f97316', '#10b981'] });
+    } catch (error) {
+      setApiError(error instanceof Error ? error.message : 'Unable to submit application. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -192,9 +225,10 @@ export const GetQuoteModal: React.FC<GetQuoteModalProps> = ({ isOpen, onClose, i
               <div className="pt-2">
                 <button
                   type="submit"
-                  className="w-full py-3 bg-[#a83b24] hover:bg-[#8f2d18] text-white font-bold text-sm rounded-lg transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
+                    disabled={isSubmitting}
+                    className="w-full py-3 bg-[#a83b24] hover:bg-[#8f2d18] disabled:opacity-60 text-white font-bold text-sm rounded-lg transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  <span>Calculate Instant Quote</span>
+                  <span>{isSubmitting ? 'Connecting to server...' : 'Calculate Instant Quote'}</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
@@ -253,7 +287,7 @@ export const GetQuoteModal: React.FC<GetQuoteModalProps> = ({ isOpen, onClose, i
                   </div>
                   <h4 className="text-base font-bold text-slate-900">Application Received!</h4>
                   <p className="text-xs text-slate-600 leading-relaxed max-w-sm mx-auto">
-                    Application ID: <span className="font-mono font-bold text-slate-900">PGICL-QUO-2025-7821</span>.<br />
+                    Application ID: <span className="font-mono font-bold text-slate-900">{applicationId}</span>.<br />
                     Our underwriting desk will call you at <span className="font-bold text-slate-900">{phone}</span> within 30 minutes to complete verification and issue your policy certificate.
                   </p>
                   <div className="flex gap-2 pt-2 justify-center">
@@ -275,9 +309,10 @@ export const GetQuoteModal: React.FC<GetQuoteModalProps> = ({ isOpen, onClose, i
                 <div className="flex flex-col sm:flex-row gap-2 pt-2">
                   <button
                     onClick={handleActivate}
-                    className="flex-1 py-3 bg-[#a83b24] hover:bg-[#8f2d18] text-white font-bold text-xs rounded-lg transition-colors cursor-pointer text-center"
+                    disabled={isSubmitting}
+                    className="flex-1 py-3 bg-[#a83b24] hover:bg-[#8f2d18] disabled:opacity-60 text-white font-bold text-xs rounded-lg transition-colors cursor-pointer text-center"
                   >
-                    Proceed to Policy Activation
+                    {isSubmitting ? 'Submitting...' : 'Proceed to Policy Activation'}
                   </button>
                   <button
                     onClick={handleReset}
@@ -287,6 +322,8 @@ export const GetQuoteModal: React.FC<GetQuoteModalProps> = ({ isOpen, onClose, i
                   </button>
                 </div>
               )}
+
+              {apiError && <p className="text-xs text-red-600 text-center" role="alert">{apiError}</p>}
 
             </div>
           )}

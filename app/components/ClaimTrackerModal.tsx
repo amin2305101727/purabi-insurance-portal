@@ -12,20 +12,28 @@ export const ClaimTrackerModal: React.FC<ClaimTrackerModalProps> = ({ isOpen, on
   const [searchQuery, setSearchQuery] = useState('CLM-2025-8841');
   const [activeClaim, setActiveClaim] = useState<ClaimRecord | null>(SAMPLE_CLAIMS[0]);
   const [searched, setSearched] = useState(true);
+  const [isSearching, setIsSearching] = useState(false);
 
   if (!isOpen) return null;
 
-  const handleSearch = (e: React.FormEvent) => {
+  const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
     const query = searchQuery.trim().toLowerCase();
-    const found = SAMPLE_CLAIMS.find(
-      (c) =>
-        c.claimId.toLowerCase().includes(query) ||
-        c.policyNumber.toLowerCase().includes(query) ||
-        c.claimantName.toLowerCase().includes(query)
-    );
-    setActiveClaim(found || null);
+    const localMatch = SAMPLE_CLAIMS.find((claim) => claim.claimId.toLowerCase() === query);
+    setIsSearching(true);
     setSearched(true);
+
+    try {
+      const response = await fetch(`/api/claims/${encodeURIComponent(searchQuery.trim())}`);
+      if (!response.ok) throw new Error('Claim not found');
+      const data = await response.json();
+      const claim = localMatch || SAMPLE_CLAIMS[0];
+      setActiveClaim({ ...claim, claimId: data.reference, status: data.status });
+    } catch {
+      setActiveClaim(null);
+    } finally {
+      setIsSearching(false);
+    }
   };
 
   return (
@@ -69,9 +77,10 @@ export const ClaimTrackerModal: React.FC<ClaimTrackerModalProps> = ({ isOpen, on
               </div>
               <button
                 type="submit"
+                disabled={isSearching}
                 className="px-5 py-2.5 bg-[#a83b24] hover:bg-[#8f2d18] text-white font-bold text-sm rounded-lg transition-colors cursor-pointer flex items-center gap-1.5"
               >
-                <span>Track</span>
+                <span>{isSearching ? 'Searching...' : 'Track'}</span>
               </button>
             </div>
             <div className="text-[11px] text-slate-500 flex items-center gap-2 pt-1">

@@ -121,6 +121,9 @@ graph TD
     Modals --> TrackerModal[Live Claim Tracker]
     Modals --> PaymentModal[MFS / Card Payment Gateway]
     Modals --> AuthModal[Portal Login]
+    Client --> API[Node.js + Express API]
+    API --> QuoteAPI[Quote and Application Endpoints]
+    API --> ClaimAPI[Claim Tracking Endpoint]
 ```
 
 ### Core Technologies
@@ -130,6 +133,7 @@ graph TD
 - **Icons**: Lucide React
 - **Animations & Effects**: Motion & Canvas Confetti
 - **Build Tool**: Vite 6.2 with Fast HMR and Rollup Tree-Shaking
+- **Backend**: Node.js with Express.js REST API
 
 ---
 
@@ -194,6 +198,12 @@ graph TD
    ```
    Open your browser and navigate to `http://localhost:3000`.
 
+4. **Launch the backend in a second terminal:**
+  ```bash
+  npm run server
+  ```
+  The Express API runs at `http://localhost:4000`. Vite proxies `/api` requests to it during development.
+
 ---
 
 ## 🧪 Available Scripts
@@ -201,6 +211,7 @@ graph TD
 | Command | Action |
 |---|---|
 | `npm run dev` | Starts the local development server at `http://localhost:3000` |
+| `npm run server` | Starts the Express API at `http://localhost:4000` |
 | `npm run build` | Compiles TypeScript and creates an optimized production bundle in `/dist` |
 | `npm run preview` | Serves the production build locally for verification |
 | `npm run lint` | Runs TypeScript compiler checks (`tsc --noEmit`) to ensure type safety |
