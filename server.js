@@ -1,11 +1,22 @@
 import 'dotenv/config';
 import express from 'express';
 import crypto from 'node:crypto';
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const distPath = path.join(__dirname, 'dist');
 
 const app = express();
 const port = Number(process.env.PORT || 4000);
 
 app.use(express.json());
+
+if (fs.existsSync(distPath)) {
+  app.use(express.static(distPath));
+}
 
 const quotes = new Map();
 const applications = new Map();
@@ -94,6 +105,16 @@ app.get('/api/claims/:reference', (request, response) => {
     updatedAt: new Date().toISOString(),
   });
 });
+
+// SPA fallback for client-side routing
+if (fs.existsSync(distPath)) {
+  app.get('*', (request, response, next) => {
+    if (request.path.startsWith('/api')) {
+      return next();
+    }
+    response.sendFile(path.join(distPath, 'index.html'));
+  });
+}
 
 app.use((error, _request, response, _next) => {
   console.error(error);
