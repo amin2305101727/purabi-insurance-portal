@@ -5,9 +5,10 @@ import logoImg from '/public/images/logo.png';
 
 interface NavbarProps {
   onOpenQuote: () => void;
+  onOpenClaimTracker?: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
+export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote, onOpenClaimTracker }) => {
   const [servicesOpen, setServicesOpen] = useState(false);
   const [claimsOpen, setClaimsOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -19,21 +20,21 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
   const claimsRef = useRef<HTMLDivElement>(null);
 
   const insuranceServices = [
-    'Health Insurance',
-    'Travel Insurance',
-    'Accident Insurance',
-    'Car Insurance',
-    'Motorcycle Insurance',
-    'Life Insurance',
-    'Fire Insurance',
-    'Marine Insurance',
-    'Group Insurance For Employees'
+    { title: 'Health Insurance', path: '/health-insurance', isLive: true },
+    { title: 'Travel Insurance', path: '/services/travel' },
+    { title: 'Accident Insurance', path: '/services/accident' },
+    { title: 'Car Insurance', path: '/services/car' },
+    { title: 'Motorcycle Insurance', path: '/services/motorcycle' },
+    { title: 'Life Insurance', path: '/services/life' },
+    { title: 'Fire Insurance', path: '/services/fire' },
+    { title: 'Marine Insurance', path: '/services/marine' },
+    { title: 'Group Insurance For Employees', path: '/services/group' }
   ];
 
   const claimsItems = [
-    { title: 'Track Active Claim Status', desc: 'Instant status checking with policy / claim ID', icon: Activity },
-    { title: 'File an Online Claim', desc: 'Quick digital claim intimation and document upload', icon: FileText },
-    { title: 'Claims Settlement Process', desc: 'Step-by-step survey and disbursement guidelines', icon: Shield }
+    { title: 'Track Active Claim Status', desc: 'Instant status checking with policy / claim ID', icon: Activity, isTracker: true },
+    { title: 'File an Online Claim', desc: 'Quick digital claim intimation and document upload', icon: FileText, path: '/claims/file-claim' },
+    { title: 'Claims Settlement Process', desc: 'Step-by-step survey and disbursement guidelines', icon: Shield, path: '/claims/process' }
   ];
 
   // Close dropdowns on outside click or escape
@@ -198,32 +199,19 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
                     </div>
 
                     <div className="divide-y divide-white/5">
-                      {insuranceServices.map((item, index) => {
-                        const isHealth = item === 'Health Insurance';
-                        return isHealth ? (
-                          <Link
-                            key={index}
-                            to="/health-insurance"
-                            onClick={() => setServicesOpen(false)}
-                            className="flex items-center justify-between px-4 py-2.5 text-white text-sm font-medium rounded-xl hover:bg-white/10 transition-colors group cursor-pointer"
-                          >
-                            <span className="text-white/95 group-hover:text-white font-semibold text-[#FFDE7D]">
-                              {item}
-                            </span>
-                            <ArrowIcon className="w-4 h-4 text-white/80 group-hover:text-white transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                          </Link>
-                        ) : (
-                          <div
-                            key={index}
-                            className="flex items-center justify-between px-4 py-2.5 text-white text-sm font-medium rounded-xl hover:bg-white/10 transition-colors group cursor-default"
-                          >
-                            <span className="text-white/95 group-hover:text-white">
-                              {item}
-                            </span>
-                            <ArrowIcon className="w-4 h-4 text-white/80 group-hover:text-white transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                          </div>
-                        );
-                      })}
+                      {insuranceServices.map((item, index) => (
+                        <Link
+                          key={index}
+                          to={item.path}
+                          onClick={() => setServicesOpen(false)}
+                          className="flex items-center justify-between px-4 py-2.5 text-white text-sm font-medium rounded-xl hover:bg-white/10 transition-colors group cursor-pointer"
+                        >
+                          <span className={`text-white/95 group-hover:text-white ${item.isLive ? 'font-semibold text-[#FFDE7D]' : ''}`}>
+                            {item.title}
+                          </span>
+                          <ArrowIcon className="w-4 h-4 text-white/80 group-hover:text-white transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                        </Link>
+                      ))}
                     </div>
                   </div>
                 </div>
@@ -263,10 +251,37 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
                   <div className="space-y-1">
                     {claimsItems.map((item, index) => {
                       const Icon = item.icon;
+                      if (item.isTracker) {
+                        return (
+                          <button
+                            key={index}
+                            type="button"
+                            onClick={() => {
+                              setClaimsOpen(false);
+                              if (onOpenClaimTracker) onOpenClaimTracker();
+                            }}
+                            className="w-full text-left flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#fcf5f3] transition-colors cursor-pointer group"
+                          >
+                            <div className="w-8 h-8 rounded-lg bg-[#a83b24]/10 text-[#a83b24] flex items-center justify-center shrink-0 mt-0.5">
+                              <Icon className="w-4 h-4" />
+                            </div>
+                            <div>
+                              <div className="text-xs font-bold text-slate-800 group-hover:text-[#a83b24] transition-colors">
+                                {item.title}
+                              </div>
+                              <div className="text-[10px] text-slate-500 font-normal leading-tight mt-0.5">
+                                {item.desc}
+                              </div>
+                            </div>
+                          </button>
+                        );
+                      }
                       return (
-                        <div
+                        <Link
                           key={index}
-                          className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#fcf5f3] transition-colors cursor-default group"
+                          to={item.path!}
+                          onClick={() => setClaimsOpen(false)}
+                          className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#fcf5f3] transition-colors cursor-pointer group"
                         >
                           <div className="w-8 h-8 rounded-lg bg-[#a83b24]/10 text-[#a83b24] flex items-center justify-center shrink-0 mt-0.5">
                             <Icon className="w-4 h-4" />
@@ -279,7 +294,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
                               {item.desc}
                             </div>
                           </div>
-                        </div>
+                        </Link>
                       );
                     })}
                   </div>
@@ -287,9 +302,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
               )}
             </div>
 
-            {/* Blogs - Plain text label */}
-            <span 
-              className="text-black cursor-default select-none py-2"
+            {/* Blogs */}
+            <NavLink 
+              to="/blogs"
               style={{
                 fontFamily: "'Poppins', sans-serif",
                 fontSize: '18px',
@@ -297,13 +312,25 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
                 lineHeight: 'normal',
                 textTransform: 'capitalize',
               }}
+              className={({ isActive }) =>
+                `transition-colors py-2 relative text-black ${
+                  isActive ? 'font-medium' : 'hover:text-[#a83b24]'
+                }`
+              }
             >
-              Blogs
-            </span>
+              {({ isActive }) => (
+                <>
+                  Blogs
+                  {isActive && (
+                    <span className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-[#a83b24] rounded-full" />
+                  )}
+                </>
+              )}
+            </NavLink>
 
-            {/* Contact Us - Plain text label */}
-            <span 
-              className="text-black cursor-default select-none py-2"
+            {/* Contact Us */}
+            <NavLink 
+              to="/contact"
               style={{
                 fontFamily: "'Poppins', sans-serif",
                 fontSize: '18px',
@@ -311,9 +338,21 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
                 lineHeight: 'normal',
                 textTransform: 'capitalize',
               }}
+              className={({ isActive }) =>
+                `transition-colors py-2 relative text-black ${
+                  isActive ? 'font-medium' : 'hover:text-[#a83b24]'
+                }`
+              }
             >
-              Contact Us
-            </span>
+              {({ isActive }) => (
+                <>
+                  Contact Us
+                  {isActive && (
+                    <span className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-[#a83b24] rounded-full" />
+                  )}
+                </>
+              )}
+            </NavLink>
           </nav>
 
           {/* Right Action: Get A Quote Button & Mobile Menu Toggle */}
@@ -386,27 +425,21 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
 
             {mobileServicesOpen && (
               <div className="pl-3 pr-1 py-2 space-y-1 bg-stone-50/70 rounded-lg mt-1 border border-stone-100 animate-in slide-in-from-top-2 duration-150">
-                {insuranceServices.map((item, idx) => {
-                  const isHealth = item === 'Health Insurance';
-                  return isHealth ? (
-                    <Link
-                      key={idx}
-                      to="/health-insurance"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center justify-between py-2 px-3 rounded-md bg-[#FAF1EE] text-[#a83b24] text-xs font-bold border border-[#ebd8cc] transition-colors"
-                    >
-                      <span>{item}</span>
-                      <ArrowIcon className="w-3.5 h-3.5" />
-                    </Link>
-                  ) : (
-                    <div
-                      key={idx}
-                      className="flex items-center justify-between py-2 px-3 rounded-md text-slate-700 text-xs font-medium hover:bg-stone-100 transition-colors cursor-default"
-                    >
-                      <span>{item}</span>
-                    </div>
-                  );
-                })}
+                {insuranceServices.map((item, idx) => (
+                  <Link
+                    key={idx}
+                    to={item.path}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`flex items-center justify-between py-2 px-3 rounded-md text-xs transition-colors ${
+                      item.isLive
+                        ? 'bg-[#FAF1EE] text-[#a83b24] font-bold border border-[#ebd8cc]'
+                        : 'text-slate-700 font-medium hover:bg-stone-100'
+                    }`}
+                  >
+                    <span>{item.title}</span>
+                    <ArrowIcon className="w-3.5 h-3.5 opacity-70" />
+                  </Link>
+                ))}
               </div>
             )}
           </div>
@@ -431,30 +464,67 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
               <div className="pl-3 pr-1 py-2 space-y-1.5 bg-stone-50/70 rounded-lg mt-1 border border-stone-100 animate-in slide-in-from-top-2 duration-150">
                 {claimsItems.map((item, idx) => {
                   const Icon = item.icon;
+                  if (item.isTracker) {
+                    return (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => {
+                          setMobileMenuOpen(false);
+                          if (onOpenClaimTracker) onOpenClaimTracker();
+                        }}
+                        className="w-full text-left p-2.5 rounded-md bg-white border border-stone-100 text-xs text-slate-800 hover:border-stone-200 transition-colors cursor-pointer"
+                      >
+                        <div className="flex items-center gap-2 font-semibold text-slate-900">
+                          <Icon className="w-3.5 h-3.5 text-[#a83b24]" />
+                          <span>{item.title}</span>
+                        </div>
+                        <p className="text-[11px] text-slate-500 mt-0.5 pl-5.5 leading-tight">{item.desc}</p>
+                      </button>
+                    );
+                  }
                   return (
-                    <div
+                    <Link
                       key={idx}
-                      className="p-2.5 rounded-md bg-white border border-stone-100 text-xs text-slate-800 hover:border-stone-200 transition-colors"
+                      to={item.path!}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="block p-2.5 rounded-md bg-white border border-stone-100 text-xs text-slate-800 hover:border-stone-200 transition-colors cursor-pointer"
                     >
                       <div className="flex items-center gap-2 font-semibold text-slate-900">
                         <Icon className="w-3.5 h-3.5 text-[#a83b24]" />
                         <span>{item.title}</span>
                       </div>
                       <p className="text-[11px] text-slate-500 mt-0.5 pl-5.5 leading-tight">{item.desc}</p>
-                    </div>
+                    </Link>
                   );
                 })}
               </div>
             )}
           </div>
 
-          <div className="px-3 py-2.5 text-sm font-semibold text-slate-800 hover:bg-stone-50 rounded-lg cursor-pointer transition-colors">
+          <NavLink
+            to="/blogs"
+            onClick={() => setMobileMenuOpen(false)}
+            className={({ isActive }) =>
+              `block px-3 py-2.5 rounded-lg text-sm font-semibold transition-colors ${
+                isActive ? 'bg-[#fcf5f3] text-[#a83b24]' : 'text-slate-800 hover:bg-stone-50'
+              }`
+            }
+          >
             Blogs
-          </div>
+          </NavLink>
 
-          <div className="px-3 py-2.5 text-sm font-semibold text-slate-800 hover:bg-stone-50 rounded-lg cursor-pointer transition-colors">
+          <NavLink
+            to="/contact"
+            onClick={() => setMobileMenuOpen(false)}
+            className={({ isActive }) =>
+              `block px-3 py-2.5 rounded-lg text-sm font-semibold transition-colors ${
+                isActive ? 'bg-[#fcf5f3] text-[#a83b24]' : 'text-slate-800 hover:bg-stone-50'
+              }`
+            }
+          >
             Contact Us
-          </div>
+          </NavLink>
 
           {/* Location & Contact info in mobile drawer */}
           <div className="pt-3 border-t border-stone-100 px-3 text-xs text-slate-500 space-y-1.5">

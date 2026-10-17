@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { Home } from '../pages/Home';
 import { About } from '../pages/About';
 import { HealthInsurance } from '../pages/HealthInsurance';
+import { UnderConstruction } from '../pages/UnderConstruction';
 import { useLayout } from '../layout/MainLayout';
 
 export const AppRoutes: React.FC = () => {
@@ -46,8 +47,36 @@ export const AppRoutes: React.FC = () => {
           />
         }
       />
-      {/* Fallback route */}
-      <Route path="*" element={<Navigate to="/" replace />} />
+      {/* Unbuilt / In-progress feature routes */}
+      <Route
+        path="/services"
+        element={<UnderConstruction onOpenQuote={openQuote} />}
+      />
+      <Route
+        path="/services/:category"
+        element={<UnderConstruction onOpenQuote={openQuote} />}
+      />
+      <Route
+        path="/claims"
+        element={<UnderConstruction onOpenQuote={openQuote} />}
+      />
+      <Route
+        path="/claims/:action"
+        element={<UnderConstruction onOpenQuote={openQuote} />}
+      />
+      <Route
+        path="/blogs"
+        element={<UnderConstruction onOpenQuote={openQuote} />}
+      />
+      <Route
+        path="/contact"
+        element={<UnderConstruction onOpenQuote={openQuote} />}
+      />
+      {/* Catch-all fallback for any other unbuilt page */}
+      <Route
+        path="*"
+        element={<UnderConstruction onOpenQuote={openQuote} />}
+      />
     </Routes>
   );
 };

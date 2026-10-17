@@ -71,7 +71,10 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         <TopHeader onOpenPortal={openPortal} />
 
         {/* Main Sticky Navigation Bar */}
-        <Navbar onOpenQuote={() => openQuote('health')} />
+        <Navbar 
+          onOpenQuote={() => openQuote('health')} 
+          onOpenClaimTracker={openClaimTracker} 
+        />
 
         {/* Page Content */}
         <main className="flex-1">

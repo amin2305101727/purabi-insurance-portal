@@ -93,15 +93,10 @@ export const Footer: React.FC<FooterProps> = ({ onOpenQuote, onOpenPayment }) =>
         >
           <Link to="/" className="px-3 py-1 text-black hover:text-[#B8422B] transition-colors" style={{ color: '#000', textTransform: 'capitalize' }}>Home</Link>
           <Link to="/about" className="px-3 py-1 text-black hover:text-[#B8422B] transition-colors" style={{ color: '#000', textTransform: 'capitalize' }}>About Us</Link>
-          <div className="px-3 py-1 flex items-center gap-1 cursor-pointer text-black hover:text-[#B8422B] transition-colors" style={{ color: '#000', textTransform: 'capitalize' }}>
-            <span>Services</span>
-            <ChevronDown className="w-4 h-4 opacity-70" />
-          </div>
-          <div className="px-3 py-1 flex items-center gap-1 cursor-pointer text-black hover:text-[#B8422B] transition-colors" style={{ color: '#000', textTransform: 'capitalize' }}>
-            <span>Claims</span>
-            <ChevronDown className="w-4 h-4 opacity-70" />
-          </div>
+          <Link to="/services" className="px-3 py-1 text-black hover:text-[#B8422B] transition-colors" style={{ color: '#000', textTransform: 'capitalize' }}>Services</Link>
+          <Link to="/claims" className="px-3 py-1 text-black hover:text-[#B8422B] transition-colors" style={{ color: '#000', textTransform: 'capitalize' }}>Claims</Link>
           <Link to="/blogs" className="px-3 py-1 text-black hover:text-[#B8422B] transition-colors" style={{ color: '#000', textTransform: 'capitalize' }}>Blogs</Link>
+          <Link to="/contact" className="px-3 py-1 text-black hover:text-[#B8422B] transition-colors" style={{ color: '#000', textTransform: 'capitalize' }}>Contact Us</Link>
           <button 
             onClick={onOpenPayment} 
             className="px-3 py-1 text-black hover:text-[#B8422B] transition-colors cursor-pointer"
