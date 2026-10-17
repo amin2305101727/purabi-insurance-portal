@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { Home } from '../pages/Home';
 import { About } from '../pages/About';
 import { HealthInsurance } from '../pages/HealthInsurance';
+import { Contact } from '../pages/Contact';
 import { UnderConstruction } from '../pages/UnderConstruction';
 import { useLayout } from '../layout/MainLayout';
 
@@ -70,7 +71,7 @@ export const AppRoutes: React.FC = () => {
       />
       <Route
         path="/contact"
-        element={<UnderConstruction onOpenQuote={openQuote} />}
+        element={<Contact onOpenQuote={openQuote} />}
       />
       {/* Catch-all fallback for any other unbuilt page */}
       <Route

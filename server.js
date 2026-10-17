@@ -86,6 +86,25 @@ app.post('/api/applications', (request, response) => {
   return response.status(201).json(application);
 });
 
+app.post('/api/contact', (request, response) => {
+  const { name, email, phone = '', subject = 'General Inquiry', message } = request.body;
+  if (!name || !email || !message) {
+    return response.status(400).json({ message: 'Name, email, and message are required.' });
+  }
+
+  const inquiry = {
+    id: `PGICL-MSG-${crypto.randomUUID().slice(0, 8).toUpperCase()}`,
+    name,
+    email,
+    phone,
+    subject,
+    message,
+    createdAt: new Date().toISOString(),
+  };
+
+  return response.status(201).json(inquiry);
+});
+
 app.get('/api/claims/:reference', (request, response) => {
   const reference = request.params.reference.toUpperCase();
 
